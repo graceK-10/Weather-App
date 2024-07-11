@@ -1,13 +1,68 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.container {
+    width: 100%;
+    height: 100vh;
+    background-color: rgb(116, 172, 225);
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.weather {
+    width: 380px;
+    height: 72vh;
+    padding: 30px;
+    border-radius: 10px;
+    top: 15%;
+    margin: 0 auto;
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+    color: white;
+}
+
+.weather::before {
+    content: "";
+    position: absolute;
+    top: 20px; /* Adjust this value to set the margin top */
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: inherit;
+    background-size: cover;
+    background-position: center;
+    z-index: -1;
+}
+
+.search{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.search input {
+    border: none;
+    outline: 0;
+    padding: 12px 25px;
+    font-size: 18px;
+    background-color: rgb(222, 237, 243);
+    color: black;
+    border-radius: 30px;
+    flex: 1;
+    margin-right: 12px;
+}
+
+.search button{
+    border: none;
+    outline: 0;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.search-icon{
+    width: 45px;
+    height: 50px;
+    color: rgb(0, 217, 255);
 }
