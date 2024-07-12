@@ -9,11 +9,11 @@
 }
 
 .weather {
-    width: 380px;
-    height: 72vh;
+    width: 400px;
+    height: 78vh;
     padding: 30px;
     border-radius: 10px;
-    top: 15%;
+    top: 10%;
     margin: 0 auto;
     position: relative;
     overflow: hidden;
@@ -65,4 +65,24 @@
     width: 45px;
     height: 50px;
     color: rgb(0, 217, 255);
+}
+
+.details{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0px 20px;
+    margin-top: 20px;
+}
+
+.details .col{
+    display: flex;
+    align-items: center;
+    text-align: left;
+}
+
+.w-icon{
+    font-size: 50px;
+    margin-right: 10px;
+    font-weight: bolder;
 }
