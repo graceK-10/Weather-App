@@ -5,7 +5,10 @@ import rain1 from "../images/rain-1.jpeg";
 import sunny1 from "../images/sunny-1.jpeg";
 import thunder1 from "../images/thunder-1.jpeg";
 
-import cloudy2 from "../images/cloudy2.png";
+import cloudyIcon from "../images/cloudyIcon.png";
+import rainIcon from "../images/rainIcon.png";
+import sunnyIcon from "../images/sunnyIcon.png";
+import thunderIcon from "../images/thunderIcon.png";
 
 const imageData = [
   {
@@ -30,8 +33,23 @@ const imageData = [
   },
   {
     id: 5,
-    src: cloudy2,
+    src: cloudyIcon,
     alt: "Cloudy Icon Weather Image",
+  },
+  {
+    id: 6,
+    src: rainIcon,
+    alt: "Raining Icon Weather Image",
+  },
+  {
+    id: 7,
+    src: sunnyIcon,
+    alt: "Sunny Icon Weather Image",
+  },
+  {
+    id: 8,
+    src: thunderIcon,
+    alt: "Thunder Icon Weather Image",
   },
 ];
 
