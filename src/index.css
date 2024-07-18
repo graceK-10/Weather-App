@@ -68,10 +68,20 @@
 }
 
 .weather-icon {
-    width: 250px; /* Adjust the size as needed */
+    width: 200px; /* Adjust the size as needed */
     height: 180px; /* Adjust the size as needed */
     margin: 0 auto;
     margin-top: 20px;
+  }
+
+  .cloudy-icon {
+    width: 320px; /* Adjust the size as needed */
+    height: 160px;
+    /* Add specific styles for cloudyIcon here */
+    /* filter: grayscale(50%);  */
+    /* border: 2px solid #ccc; */
+    /* padding: 10px;
+    border-radius: 50%;  */
   }
 
 .details{

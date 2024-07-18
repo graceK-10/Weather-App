@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { IoSearchCircleSharp } from "react-icons/io5";
 import { PiWindFill } from "react-icons/pi";
@@ -8,11 +8,6 @@ import imageData from "./components/Data";
 import backgroundVideo from "./images/Untitled video - Made with Clipchamp (8).mp4";
 
 const Home = () => {
-  // Find the cloudy image from imageData
-  // const cloudyImage = imageData.find((image) => image.id === 1);
-  // const cloudIcon = imageData.find((image) => image.id === 5);
-
-  //
   const [data, setData] = useState({
     celcius: 10,
     name: "London",
@@ -35,29 +30,6 @@ const Home = () => {
       ? "Very High"
       : "Extreme";
 
-  const handleClick = () => {
-    if (name !== "") {
-      const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${name}&appid=8e5b060c256ec7d7e0aedf990fc00d1c&units=metric`;
-      axios
-        .get(apiUrl)
-        .then((res) => {
-          console.log("Weather data:", res.data);
-          const uvUrl = `https://api.openweathermap.org/data/2.5/uvi?lat=${res.data.coord.lat}&lon=${res.data.coord.lon}&appid=8e5b060c256ec7d7e0aedf990fc00d1c`;
-          axios.get(uvUrl).then((uvRes) => {
-            setData((prevData) => ({
-              ...prevData,
-              celcius: res.data.main.temp,
-              name: res.data.name,
-              humidity: res.data.main.humidity,
-              description: res.data.weather[0].description,
-              uv: uvRes.data.value,
-            }));
-          });
-        })
-        .catch((err) => console.log("Error fetching data:", err));
-    }
-  };
-
   // Choosing the correct image based on the weather description
   const getWeatherImage = (description) => {
     if (description.includes("cloud")) {
@@ -72,7 +44,7 @@ const Home = () => {
     return null;
   };
 
-  const weatherImage = getWeatherImage(data.description);
+  // const weatherImage = getWeatherImage(data.description);
 
   // Choosing the correct icon based on the weather description
   const getWeatherIcon = (description) => {
@@ -88,7 +60,57 @@ const Home = () => {
     return null;
   };
 
+  // const weatherIcon = getWeatherIcon(data.description);
+
+  const handleClick = () => {
+    if (name !== "") {
+      const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${name}&appid=8e5b060c256ec7d7e0aedf990fc00d1c&units=metric`;
+      axios
+        .get(apiUrl)
+        .then((res) => {
+          const weatherDescription =
+            res.data.weather[0].description.toLowerCase();
+          const uvUrl = `https://api.openweathermap.org/data/2.5/uvi?lat=${res.data.coord.lat}&lon=${res.data.coord.lon}&appid=8e5b060c256ec7d7e0aedf990fc00d1c`;
+          axios.get(uvUrl).then((uvRes) => {
+            setData((prevData) => ({
+              ...prevData,
+              celcius: res.data.main.temp,
+              name: res.data.name,
+              humidity: res.data.main.humidity,
+              description: weatherDescription,
+              uv: uvRes.data.value,
+            }));
+          });
+        })
+        .catch((err) => console.log("Error fetching data:", err));
+    }
+  };
+
+  const weatherImage = getWeatherImage(data.description);
   const weatherIcon = getWeatherIcon(data.description);
+
+  useEffect(() => {
+    const defaultCity = "London";
+    const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${defaultCity}&appid=8e5b060c256ec7d7e0aedf990fc00d1c&units=metric`;
+    axios
+      .get(apiUrl)
+      .then((res) => {
+        const weatherDescription =
+          res.data.weather[0].description.toLowerCase();
+        const uvUrl = `https://api.openweathermap.org/data/2.5/uvi?lat=${res.data.coord.lat}&lon=${res.data.coord.lon}&appid=8e5b060c256ec7d7e0aedf990fc00d1c`;
+        axios.get(uvUrl).then((uvRes) => {
+          setData((prevData) => ({
+            ...prevData,
+            celcius: res.data.main.temp,
+            name: res.data.name,
+            humidity: res.data.main.humidity,
+            description: weatherDescription,
+            uv: uvRes.data.value,
+          }));
+        });
+      })
+      .catch((err) => console.log("Error fetching data:", err));
+  }, []);
 
   return (
     <div className="relative w-full h-screen overflow-hidden">
@@ -129,7 +151,9 @@ const Home = () => {
               <img
                 src={weatherIcon.src}
                 alt={weatherIcon.alt}
-                className="weather-icon"
+                className={`weather-icon ${
+                  data.description.includes("cloud") ? "cloudy-icon" : ""
+                }`}
               />
             )}
             <h1 className="text-5xl mt-2"> {Math.round(data.celcius)} °C</h1>
